@@ -1,4 +1,4 @@
-# Voice Support + Screen-Aware Guidance
+# Voice Support: State-Grounded Guidance and Safe Handoff
 
 This prototype is my reimagined take on how customers seek help in B2C products. It turns typed or voice requests into one of three bounded outcomes:
 
