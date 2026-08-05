@@ -1,5 +1,7 @@
 # Evaluation
 
+> **Authorship note:** Written with an LLM and verified by me against the implementation and evidence.
+
 ## Evaluation goals
 
 The evaluation asks seven bounded questions:
@@ -231,4 +233,3 @@ The upload protocol passed its automated fixtures but had no independent human r
 - Correction, obsolete-state, rescue, and human diagnostic slices have very small denominators.
 - Timing sets use different boundaries and cannot be combined into one end-to-end figure.
 - No test covers public traffic, concurrent users, real personal data, live helpdesk operation, or production outages.
-

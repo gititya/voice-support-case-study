@@ -1,5 +1,7 @@
 # Decisions and trade-offs
 
+> **Authorship note:** Written with an LLM and verified by me against the implementation and evidence.
+
 ## 1. Put the final decision in deterministic policy
 
 **Problem**

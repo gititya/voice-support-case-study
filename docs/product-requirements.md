@@ -1,5 +1,7 @@
 # Product requirements
 
+> **Authorship note:** Written with an LLM and verified by me against the implementation and evidence.
+
 ## Scope and status labels
 
 - **Implemented:** present in the audited local repositories and covered by code or fixture evidence.

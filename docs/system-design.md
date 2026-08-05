@@ -1,5 +1,7 @@
 # System design
 
+> **Authorship note:** Written with an LLM and verified by me against the implementation and evidence.
+
 ## Plain-English view
 
 Voice Support is the interaction layer. It accepts text or a short recording, manages transcript correction, asks a model for a structured interpretation, calls the decision core, checks the final wording, records the trace, and returns guidance, a question, or a mock handoff.

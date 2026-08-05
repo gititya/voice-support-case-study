@@ -1,5 +1,7 @@
 # Customer problem
 
+> **Authorship note:** Written with an LLM and verified by me against the implementation and evidence.
+
 ## User problem
 
 A customer who gets stuck inside a product often has to leave the task, search generic help content, and restate the issue to several support layers. The support system may not know the screen or account state the customer can already see. It can then suggest an unavailable control, repeat a failed step, or imply an outcome it cannot guarantee.
@@ -50,4 +52,3 @@ When I am stuck in a product task:
 - Training or changing decision rules from live feedback without review
 - Support for arbitrary third-party apps or unknown screen targets
 - A production deployment or proof of customer, cost, or service-level impact
-

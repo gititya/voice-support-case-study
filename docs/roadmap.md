@@ -1,5 +1,7 @@
 # Roadmap
 
+> **Authorship note:** Written with an LLM and verified by me against the implementation and evidence.
+
 ## Current state
 
 Voice Support and Support State Core form a local synthetic prototype with three governed outcomes: guide, troubleshoot, and mock handoff. The sealed code passes its local tests, and the repositories retain dated scenario, model, speech, timing, and policy evidence.
@@ -127,4 +129,3 @@ Evidence needed:
 - a rollback path that does not depend on a model response.
 
 None of these production requirements is complete in the audited prototype.
-

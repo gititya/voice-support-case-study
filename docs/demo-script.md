@@ -1,5 +1,7 @@
 # Three-minute demo script
 
+> **Authorship note:** Written with an LLM and verified by me against the implementation and evidence.
+
 ## Before recording
 
 Use only the controlled synthetic app and fixture accounts. Reset local cases. Show no terminal path, credential, database contents, trace identifier, or private repository screen. If the private Screen-Aware Support v1.0.0 path is unavailable, show the registered target in the app without claiming a live overlay.
