@@ -1,0 +1,15 @@
+.DS_Store
+.env
+.env.*
+!.env.example
+*serviceaccount*
+*.pem
+*.p12
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.codex/
+.claude/
+BUILDS.md
+drafts/
+
