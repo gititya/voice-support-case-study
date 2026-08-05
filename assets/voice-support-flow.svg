@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="700" viewBox="0 0 1200 700" role="img" aria-labelledby="title description">
+  <title id="title">How a Voice Support turn is governed</title>
+  <desc id="description">A customer request moves through intake and transcript confirmation, model interpretation, and Support State Core. The deterministic core selects guide, troubleshoot, or mock handoff. Audit and evaluation happen after the response and do not change the live decision.</desc>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/>
+    </marker>
+  </defs>
+
+  <rect width="1200" height="700" rx="20" fill="#f8fafc"/>
+
+  <text x="40" y="54" fill="#172033" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="30" font-weight="700">How a support turn is governed</text>
+  <text x="40" y="84" fill="#64748b" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="17">The model proposes. Trusted state and fixed policy decide. The customer remains the actor.</text>
+
+  <text x="40" y="126" fill="#64748b" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" font-weight="700" letter-spacing="1.4">LIVE SUPPORT TURN</text>
+
+  <rect x="40" y="150" width="210" height="120" rx="12" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="60" y="184" fill="#172033" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="21" font-weight="700">Customer request</text>
+  <text x="60" y="216" fill="#475569" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="16">
+    <tspan x="60" dy="0">Voice or text inside a</tspan>
+    <tspan x="60" dy="23">controlled product</tspan>
+  </text>
+
+  <path d="M 250 210 H 286" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <rect x="290" y="150" width="240" height="120" rx="12" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="310" y="184" fill="#172033" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="21" font-weight="700">Intake + confirmation</text>
+  <text x="310" y="214" fill="#475569" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15">
+    <tspan x="310" dy="0">Local STT when configured</tspan>
+    <tspan x="310" dy="21">Customer corrects uncertainty</tspan>
+    <tspan x="310" dy="21">PII scrub before remote models</tspan>
+  </text>
+
+  <path d="M 530 210 H 566" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <rect x="570" y="150" width="240" height="120" rx="12" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="590" y="174" fill="#64748b" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" font-weight="700" letter-spacing="1.2">ADVISORY</text>
+  <text x="590" y="203" fill="#172033" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="21" font-weight="700">Model interpretation</text>
+  <text x="590" y="233" fill="#475569" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15">
+    <tspan x="590" dy="0">Proposes intent, risk,</tspan>
+    <tspan x="590" dy="21">and a registered capability</tspan>
+  </text>
+
+  <path d="M 810 210 H 846" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <rect x="850" y="138" width="310" height="144" rx="14" fill="#fff7ed" stroke="#b45309" stroke-width="3"/>
+  <text x="874" y="164" fill="#b45309" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="12" font-weight="800" letter-spacing="1.3">FINAL DECISION</text>
+  <text x="874" y="196" fill="#172033" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="23" font-weight="750">Support State Core</text>
+  <text x="874" y="226" fill="#475569" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15">
+    <tspan x="874" dy="0">Trusted state + fixed policy</tspan>
+    <tspan x="874" dy="21">Risk floor cannot be lowered</tspan>
+    <tspan x="874" dy="21">Selects one allowed lane</tspan>
+  </text>
+
+  <text x="580" y="326" fill="#64748b" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" font-weight="700" letter-spacing="1.4">ALLOWED OUTCOMES</text>
+
+  <path d="M 1005 282 V 330 H 670 V 351" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <path d="M 1005 330 H 880 V 351" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <path d="M 1005 330 H 1090 V 351" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <rect x="580" y="355" width="180" height="120" rx="12" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="670" y="390" text-anchor="middle" fill="#172033" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="20" font-weight="700">Guide</text>
+  <text x="670" y="422" text-anchor="middle" fill="#475569" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15">
+    <tspan x="670" dy="0">One safe control</tspan>
+    <tspan x="670" dy="21">Customer acts</tspan>
+  </text>
+
+  <rect x="790" y="355" width="180" height="120" rx="12" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="880" y="390" text-anchor="middle" fill="#172033" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="20" font-weight="700">Troubleshoot</text>
+  <text x="880" y="422" text-anchor="middle" fill="#475569" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15">
+    <tspan x="880" dy="0">One approved question</tspan>
+    <tspan x="880" dy="21">At most two steps</tspan>
+  </text>
+
+  <rect x="1000" y="355" width="180" height="120" rx="12" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="1090" y="390" text-anchor="middle" fill="#172033" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="20" font-weight="700">Mock handoff</text>
+  <text x="1090" y="422" text-anchor="middle" fill="#475569" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15">
+    <tspan x="1090" dy="0">Structured local case</tspan>
+    <tspan x="1090" dy="21">No live support queue</tspan>
+  </text>
+
+  <path d="M 670 475 V 500 H 1090 V 475" fill="none" stroke="#475569" stroke-width="1.8" stroke-dasharray="7 6"/>
+  <path d="M 880 475 V 536" fill="none" stroke="#475569" stroke-width="2" stroke-dasharray="7 6" marker-end="url(#arrow)"/>
+
+  <text x="580" y="522" fill="#64748b" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="13" font-weight="700" letter-spacing="1.4">AFTER THE RESPONSE</text>
+  <rect x="580" y="540" width="600" height="112" rx="12" fill="#f1f5f9" stroke="#475569" stroke-width="2"/>
+  <text x="605" y="578" fill="#172033" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="22" font-weight="700">Audit + evaluation</text>
+  <text x="605" y="607" fill="#475569" font-family="Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif" font-size="15">
+    <tspan x="605" dy="0">Local decision trace remains primary. Configured model judges review after the response.</tspan>
+    <tspan x="605" dy="22">Evaluation can inform a reviewed change; it never changes the live lane.</tspan>
+  </text>
+</svg>

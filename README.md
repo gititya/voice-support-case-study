@@ -2,6 +2,28 @@
 
 Voice Support is a local, synthetic support prototype that turns a typed or spoken in-app request into one of three bounded outcomes: safe visual guidance, one approved troubleshooting question, or a structured mock handoff to a person.
 
+## Start here
+
+Three findings explain the product design. All come from small, synthetic evaluation sets; none measures production performance or customer impact.
+
+- **The model and the full system did different jobs.** On 12 human-labelled synthetic cases, the meaning model matched exact intent plus risk in **7/12**. After deterministic rules and guards, the combined system matched the expected final lane in **11/12**. The latter is system performance, not model accuracy.
+- **A plausible speech improvement made safety worse.** On the 35-clip synthetic speech set, the tested transcript-cleanup step increased support-critical failure rates to **28.6% for both engines**. I rejected it and kept transcript confirmation in the path.
+- **The conservative design had a visible cost.** In the 12-case held-out set, the raise-only design produced **zero false-safe routes and one false escalation**: a low-risk guide case became a handoff. I accepted that cost rather than allow a model to lower a deterministic risk floor.
+
+## Demo
+
+Demo video: [Add recorded walkthrough]
+
+Recording plan: [Three-minute demo script](docs/demo-script.md)
+
+No public live demo is currently available.
+
+## What I owned
+
+I defined the product hypothesis and translated it into the customer problem, user journeys, requirements, non-goals, system boundaries, safety model, evaluation criteria, and roadmap. I made the major product and architecture trade-offs and retained final decision authority over product behavior, architecture, scope, evaluation, and publication claims.
+
+I used Codex and Claude Code as implementation partners across coding, testing, review, and documentation. I reviewed the resulting implementation and evidence and decided what became part of the product.
+
 ## The customer problem
 
 When a customer gets stuck in a product, the support path can make the problem worse. A generic bot may repeat help-center text, ask the customer to restate the issue, or promise an outcome it cannot control. Voice input adds another risk: a transcription error can change an amount, deadline, account state, or requested action.
@@ -10,11 +32,11 @@ This prototype tests a narrower product idea: use models to interpret the reques
 
 The problem statement is a product hypothesis built for a controlled demo. It is not a finding from production use or customer research.
 
-## Who it is for
+### Who it is for
 
 The primary user is a customer who is already inside a controlled consumer app and needs help with the task in front of them. The intended secondary user is a support specialist who would receive a handoff with the customer's confirmed facts, product context, and the reason for escalation.
 
-The prototype also gives product and support reviewers an evidence trail for each decision. It does not model a deployed support team, live queue, or real customer account.
+The prototype also gives product and support reviewers an evidence trail for each decision.
 
 ## What the experience does
 
@@ -30,29 +52,17 @@ The prototype also gives product and support reviewers an evidence trail for eac
 
 The customer remains the actor. The prototype does not click, submit, cancel, refund, or change account data for them.
 
-## Current implementation status
+## Architecture overview
 
-| Area | Status | What exists |
-|---|---|---|
-| Typed support turns | Implemented in the local prototype | A fixed HTTP turn path runs interpretation, deterministic policy, response gating, audit, and one of three bounded outcomes. |
-| Voice input | Implemented in the local prototype | Short recordings can be transcribed; uncertain text is held for customer review before the support turn runs. |
-| State and policy decisions | Implemented | Support State Core validates context, applies risk floors and corrections, and routes to guide, troubleshoot, or handoff. |
-| Visual guidance | Proof only | A separate private dependency can render a highlight in the controlled demo app. The customer still performs the action. |
-| Human handoff | Mock only | Handoffs are written to a local SQLite inbox. There is no live support queue or helpdesk integration. |
-| Evaluation | Implemented for synthetic fixtures | Deterministic tests, fixed scenario suites, and dated model-judge artifacts exist. Results and denominators are listed below. |
-| Production deployment | Not built | There is no hosted service, production authentication, tenant isolation, live customer data, operational queue, or deployment record. |
+`Voice or text → model interpretation → deterministic state and policy → guide | troubleshoot | handoff`
 
-At the audit date, the two source repositories and several runtime dependencies were private. The full experience cannot be installed from this case-study repository.
-
-The evidence in this case study is tied to the shared sealed tag `m4-flow0-proof-2026-07-31`: Voice Support commit `38d93ab` and Support State Core commit `69e4227`. Voice Support's remote `main` also contained one later CI-workflow-only commit, which is outside the product evidence boundary used here.
-
-## Architecture in one view
+![Voice Support flow: a model proposes intent and risk; Support State Core applies trusted state, fixed policy, and a deterministic risk floor before selecting guide, troubleshoot, or mock handoff. Audit and evaluation run after the response.](assets/voice-support-flow.svg)
 
 Voice Support owns the customer interaction, voice handling, model interpretation, wording checks, audit records, and local handoff UI. Support State Core is the deterministic decision layer: it combines the proposed meaning with trusted product context and returns the allowed support lane.
 
 The full demo also depends on private components outside these two repositories, including the controlled customer app, handoff policy code, a support ontology, transcript processing, and screen-aware rendering. The [system design](docs/system-design.md) shows those boundaries instead of presenting the two repositories as a self-contained deployment.
 
-## Five product decisions
+## Product decisions
 
 1. **Keep the final decision deterministic.** A model can propose intent and risk, but product state and rules select the lane.
 2. **Let uncertain model output make the path safer, not more permissive.** A failed or higher-risk interpretation can raise risk or cause a handoff; it cannot lower a trusted risk floor.
@@ -77,6 +87,20 @@ These results come from synthetic scenarios and local test fixtures. They do not
 
 The paid model evaluation was not rerun during publication review. The result above comes from its committed artifact. Fresh verification covered the code tests and the deterministic Core benchmark. Read the [full evaluation record](docs/evaluation.md) for methods, failures, timing boundaries, and limits.
 
+## Current implementation status
+
+| Area | Status | What exists |
+|---|---|---|
+| Typed support turns | Implemented in the local prototype | A fixed HTTP turn path runs interpretation, deterministic policy, response gating, audit, and one of three bounded outcomes. |
+| Voice input | Implemented in the local prototype | Short recordings can be transcribed; uncertain text is held for customer review before the support turn runs. |
+| State and policy decisions | Implemented | Support State Core validates context, applies risk floors and corrections, and routes to guide, troubleshoot, or handoff. |
+| Visual guidance | Proof only | A separate private dependency can render a highlight in the controlled demo app. The customer still performs the action. |
+| Human handoff | Mock only | Handoffs are written to a local SQLite inbox. There is no live support queue or helpdesk integration. |
+| Evaluation | Implemented for synthetic fixtures | Deterministic tests, fixed scenario suites, and dated model-judge artifacts exist. Results and denominators are listed below. |
+| Production deployment | Not built | There is no hosted service, production authentication, tenant isolation, live customer data, operational queue, or deployment record. |
+
+The evidence in this case study is tied to the shared sealed tag `m4-flow0-proof-2026-07-31`: Voice Support commit `38d93ab` and Support State Core commit `69e4227`. Voice Support's remote `main` also contained one later CI-workflow-only commit, which is outside the product evidence boundary used here.
+
 ## Known limitations
 
 - All scenarios use synthetic data in controlled apps. There are no real users, customer accounts, tickets, or production metrics.
@@ -88,7 +112,7 @@ The paid model evaluation was not rerun during publication review. The result ab
 - Support State Core has thin evidence for correction and obsolete-state cases, and its scored rescue slice failed 0/2.
 - The prototype has no production controls for authentication, tenant isolation, retention, rate limits, incident response, or service monitoring.
 
-## Read the case study
+## Deep-dive documentation
 
 - [Customer problem](docs/customer-problem.md)
 - [Product requirements](docs/product-requirements.md)
@@ -98,9 +122,9 @@ The paid model evaluation was not rerun during publication review. The result ab
 - [Roadmap](docs/roadmap.md)
 - [Three-minute demo script](docs/demo-script.md)
 
-## Demo and source access
+## Source and verification notes
 
-There is no public live demo. The [demo script](docs/demo-script.md) describes the controlled local flow and names the evidence shown at each step.
+### Source access
 
 The audited source repositories were private on 2026-08-05:
 
@@ -109,7 +133,9 @@ The audited source repositories were private on 2026-08-05:
 
 Those links may require access. No source license had been added at the audit date.
 
-## Setup and verification
+The complete experience also depends on private components outside the two repositories. It cannot be installed from this case-study repository.
+
+### Maintainer verification
 
 This repository contains documentation only. It has no runtime setup.
 
