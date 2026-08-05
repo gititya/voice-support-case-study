@@ -6,7 +6,7 @@ Voice Support is the interaction layer. It accepts text or a short recording, ma
 
 Support State Core is the policy layer. It does not write conversational answers. It validates product context, applies fixed risk floors and corrections, runs bounded diagnostic rules, and returns the lane the interaction layer may use.
 
-The two repositories do not form a complete public application on their own. The local demo also uses private components for the controlled customer app, transcript processing, handoff policy, support ontology, and screen-aware rendering.
+The two primary repositories do not form a complete public application on their own. The local demo also uses private components for the controlled customer app, transcript processing, handoff policy, and support ontology. Screen-Aware Support is a separate private companion capability used only on an approved guide path.
 
 ## Architecture
 
@@ -19,8 +19,10 @@ flowchart LR
     M["Meaning model: intent, risk, capability proposal"]
     K["Support State Core: context, policy, lane"]
     G["Deterministic wording and handoff gates"]
-    O["Guide, troubleshoot, or mock handoff"]
-    R["Private screen-aware renderer"]
+    D["Guide response"]
+    T["Troubleshooting question"]
+    E["Mock handoff"]
+    R["Screen-Aware Support: resolve one registered target"]
     H["Local SQLite handoff inbox"]
     A["Local audit trace"]
     J["Post-response model judges and Langfuse"]
@@ -32,11 +34,14 @@ flowchart LR
     M -->|"structured proposal"| K
     V -->|"trusted product context"| K
     K -->|"allowed lane and reason"| G
-    G --> O
-    O -->|"registered target"| R
-    R --> C
-    O --> H
-    O --> C
+    G -->|"guide"| D
+    G -->|"troubleshoot"| T
+    G -->|"handoff"| E
+    D -->|"approved guide + registered target"| R
+    R -->|"input-transparent outline or caption"| C
+    T --> C
+    E --> H
+    E --> C
     G --> A
     G -.->|"non-blocking review"| J
 ```
@@ -52,7 +57,7 @@ Dashed review traffic is not part of the live decision. The model judges receive
 5. **Trusted context:** Voice Support builds product context from the controlled app and pins it to the turn. Support State Core rejects missing, stale, invalid, or inapplicable context rather than guessing.
 6. **Deterministic decision:** The core applies its risk floor, corrections, diagnostic protocol, and lane router. It returns guide, troubleshoot, or handoff with a reason.
 7. **Response gate:** Voice Support and a separate handoff dependency enforce wording and required-record rules. The system returns one step, one question, or a handoff record.
-8. **Output:** A guide result may ask the private renderer to highlight a registered control. A handoff result is stored in a local SQLite inbox. Neither path changes the customer's account.
+8. **Output:** Only an approved guide result with a registered target may ask Screen-Aware Support to resolve and display that target. Troubleshoot and handoff do not enter the visual-guidance branch. A handoff result is stored in a local SQLite inbox. No path changes the customer's account.
 9. **Review:** The system writes a local audit trace. Configured model judges and Langfuse receive an asynchronous copy for evaluation; their failure does not change the customer response.
 
 ## Repository and dependency boundaries
@@ -65,10 +70,10 @@ Dashed review traffic is not part of the live decision. The model judges receive
 | Handoff engine | Mechanical handoff record and wording checks | Local sibling dependency; not declared as an installable Voice Support package dependency |
 | Support ontology | Product and support definitions used by the interaction layer | Local sibling dependency; not declared as an installable Voice Support package dependency |
 | Transcript processor | Meaning-preserving transcript handling | Local editable dependency imported by Voice Support |
-| Screen-aware support | Registered target rendering with no click authority | Separate private release |
+| Screen-Aware Support | Optional registered-target resolution and non-interactive guidance after an approved guide decision | Separate private companion repository with a tagged v1.0.0 release; access required |
 | Model and observability services | Meaning proposal, post-response judges, and trace collection when configured | External services reached with local credentials |
 
-This case study does not include source or setup for those private dependencies.
+This case study does not include source or setup for the private companion or the other private dependencies.
 
 ## Deterministic and model-driven components
 
@@ -106,7 +111,7 @@ Model output can add caution or trigger a handoff. It does not override a higher
 | Model under-reads risk | Preserve the deterministic floor and its lane. |
 | Diagnostic protocol reaches its bound | Hand off with the questions and answers already collected. |
 | Response contains a blocked promise or lacks handoff facts | The deterministic gate rejects the response or handoff. |
-| Screen identity or target is unknown | Withhold or clear the overlay; do not point at an unregistered control. |
+| Screen-Aware app, screen, target, frame, session, consent, geometry, or command state cannot be verified | Withhold or clear the overlay; do not point at an unregistered or stale control. |
 | Audit sink, model judge, or Langfuse fails | Return the deterministic response and retain the primary local trace when possible. |
 
 ## Deployment boundary

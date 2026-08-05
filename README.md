@@ -54,13 +54,31 @@ The customer remains the actor. The prototype does not click, submit, cancel, re
 
 ## Architecture overview
 
-`Voice or text → model interpretation → deterministic state and policy → guide | troubleshoot | handoff`
+```text
+Customer voice or text → Voice Support → Support State Core → guide | troubleshoot | handoff
+                                                           └─ approved guide + registered target
+                                                              → Screen-Aware Support
+                                                              → display non-interactive guidance
+                                                              → customer acts
+```
 
 ![Voice Support flow: a model proposes intent and risk; Support State Core applies trusted state, fixed policy, and a deterministic risk floor before selecting guide, troubleshoot, or mock handoff. Audit and evaluation run after the response.](assets/voice-support-flow.svg)
 
 Voice Support owns the customer interaction, voice handling, model interpretation, wording checks, audit records, and local handoff UI. Support State Core is the deterministic decision layer: it combines the proposed meaning with trusted product context and returns the allowed support lane.
 
-The full demo also depends on private components outside these two repositories, including the controlled customer app, handoff policy code, a support ontology, transcript processing, and screen-aware rendering. The [system design](docs/system-design.md) shows those boundaries instead of presenting the two repositories as a self-contained deployment.
+The full demo also depends on private components outside these two repositories, including the controlled customer app, handoff policy code, a support ontology, and transcript processing. The [system design](docs/system-design.md) shows those boundaries instead of presenting the repositories as a self-contained deployment.
+
+## Companion capability: Screen-Aware Support
+
+Written guidance still leaves the customer to find the correct control. [Screen-Aware Support](https://github.com/gititya/screen-aware-support) is an optional companion used only after Support State Core has approved the guide lane and Voice Support has approved a registered target.
+
+Voice Support retains the customer context, consent, support policy, risk, and action selection. Screen-Aware Support resolves one approved control within a registered product and displays an input-transparent outline or caption. The customer remains the only actor.
+
+Screen-Aware Support does not decide what support should do. It cannot move the pointer, click, type, focus, scroll, submit, navigate, or change product state. It does not sit in the troubleshoot or handoff paths. If the app, screen, target, frame, session, consent, geometry, or command state cannot be verified, the guidance is withheld or cleared.
+
+Keeping this capability separate makes target resolution and presentation reusable while Voice Support and Support State Core retain product and support authority. The boundary improves reuse, isolated testing, and authority separation. It also adds contract, versioning, and dependency-management work.
+
+The current integration is a controlled local path, not a production deployment or support for arbitrary apps. The companion repository and its v1.0.0 release are private; the link requires access. See [Screen-Aware Support — visual guidance without remote control](https://github.com/gititya/screen-aware-support) for its contracts, privacy boundary, threat model, and evidence.
 
 ## Product decisions
 
@@ -68,7 +86,8 @@ The full demo also depends on private components outside these two repositories,
 2. **Let uncertain model output make the path safer, not more permissive.** A failed or higher-risk interpretation can raise risk or cause a handoff; it cannot lower a trusted risk floor.
 3. **Bound troubleshooting.** The system asks one approved question at a time and permits at most two diagnostic steps before handoff.
 4. **Use voice for input and the screen for action.** The customer can speak naturally, then review the transcript and act on a visible control. The system does not take remote control.
-5. **Keep misses visible.** Evaluation reports retain small denominators, failed experiments, and model errors instead of combining them into one headline score.
+5. **Keep visual guidance separate from support authority.** Target resolution and presentation are reusable, but customer context, support policy, risk, and action selection remain with Voice Support and Support State Core. This improves reuse, testing, and authority separation at the cost of explicit contracts, pinned versions, and dependency management. See the [Screen-Aware Support boundary](https://github.com/gititya/screen-aware-support/blob/main/docs/public-api-v1.md) (private; access required).
+6. **Keep misses visible.** Evaluation reports retain small denominators, failed experiments, and model errors instead of combining them into one headline score.
 
 See [decisions and trade-offs](docs/decisions-and-tradeoffs.md) for the options, evidence, costs, and change conditions behind each decision.
 
@@ -94,7 +113,7 @@ The paid model evaluation was not rerun during publication review. The result ab
 | Typed support turns | Implemented in the local prototype | A fixed HTTP turn path runs interpretation, deterministic policy, response gating, audit, and one of three bounded outcomes. |
 | Voice input | Implemented in the local prototype | Short recordings can be transcribed; uncertain text is held for customer review before the support turn runs. |
 | State and policy decisions | Implemented | Support State Core validates context, applies risk floors and corrections, and routes to guide, troubleshoot, or handoff. |
-| Visual guidance | Proof only | A separate private dependency can render a highlight in the controlled demo app. The customer still performs the action. |
+| Visual guidance | Implemented in a controlled local guide path | Voice Support consumes checksum-pinned Screen-Aware Support v1.0.0 Python, browser, and contract artifacts. It resolves registered targets only and leaves every product action to the customer. The companion capability also has controlled browser and macOS examples; this does not establish production deployment or arbitrary-app support. |
 | Human handoff | Mock only | Handoffs are written to a local SQLite inbox. There is no live support queue or helpdesk integration. |
 | Evaluation | Implemented for synthetic fixtures | Deterministic tests, fixed scenario suites, and dated model-judge artifacts exist. Results and denominators are listed below. |
 | Production deployment | Not built | There is no hosted service, production authentication, tenant isolation, live customer data, operational queue, or deployment record. |
@@ -107,7 +126,7 @@ The evidence in this case study is tied to the shared sealed tag `m4-flow0-proof
 - The case study is presentation-first. It does not include the private source, model credentials, local databases, recordings, or build artifacts.
 - Voice Support's package manifest does not describe every local dependency needed for a clean install.
 - Human handoff ends in a local mock inbox; no specialist accepts or resolves the case.
-- Visual guidance relies on a separate private release and a registered demo app.
+- Visual guidance relies on a private companion release and registered controlled products; it is not available for arbitrary apps or screens.
 - The model and timing samples are small. Several timing measures exclude recording, upload, transcription, confirmation, or rendering.
 - Support State Core has thin evidence for correction and obsolete-state cases, and its scored rescue slice failed 0/2.
 - The prototype has no production controls for authentication, tenant isolation, retention, rate limits, incident response, or service monitoring.
@@ -121,6 +140,7 @@ The evidence in this case study is tied to the shared sealed tag `m4-flow0-proof
 - [Evaluation](docs/evaluation.md)
 - [Roadmap](docs/roadmap.md)
 - [Three-minute demo script](docs/demo-script.md)
+- [Screen-Aware Support — visual guidance without remote control](https://github.com/gititya/screen-aware-support) (private; access required)
 
 ## Source and verification notes
 
@@ -130,10 +150,11 @@ The audited source repositories were private on 2026-08-05:
 
 - [Voice Support source](https://github.com/gititya/voice-support) — customer interaction, interpretation, response gate, audit, and mock handoff
 - [Support State Core source](https://github.com/gititya/support-state-core) — deterministic context, risk, correction, diagnostic, and lane rules
+- [Screen-Aware Support source](https://github.com/gititya/screen-aware-support) — optional registered-target resolution and non-interactive visual guidance
 
 Those links may require access. No source license had been added at the audit date.
 
-The complete experience also depends on private components outside the two repositories. It cannot be installed from this case-study repository.
+The companion repository and other complete-demo components remain private. The experience cannot be installed from this case-study repository.
 
 ### Maintainer verification
 

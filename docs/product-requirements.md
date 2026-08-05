@@ -3,7 +3,7 @@
 ## Scope and status labels
 
 - **Implemented:** present in the audited local repositories and covered by code or fixture evidence.
-- **Proof only:** demonstrated in a narrow local path, often through a separate private dependency.
+- **Proof only:** demonstrated in a narrow local path without broader deployment or usability evidence.
 - **Not built:** a requirement for a fuller product or production deployment, not a current capability.
 
 ## Primary user journeys
@@ -12,7 +12,7 @@
 
 The customer asks how to complete a low-risk task. The system reads the request, checks trusted product context, selects the guide lane, and points to one verified control. The customer performs the action.
 
-Status: **Implemented** for controlled scenarios. Visual highlighting is **proof only** through a private screen-aware component.
+Status: **Implemented in controlled scenarios.** Visual guidance uses checksum-pinned Screen-Aware Support v1.0.0 artifacts and runs only after a final guide decision with a registered, current target. Production use and arbitrary-app support are not built.
 
 ### 2. Correction before decision
 
@@ -47,7 +47,7 @@ Status: **Implemented as a local mock**. A live queue and specialist workflow ar
 | Give one guidance step or one diagnostic question per turn. | Implemented for governed scenarios |
 | Block unsupported promises and unsafe response wording. | Implemented through response and handoff gates |
 | Record decision traces and handoff records locally. | Implemented |
-| Render a highlight only for a registered target in the controlled app. | Proof only through a separate private component |
+| Render non-interactive guidance only for a registered target after an approved guide decision. | Implemented in the controlled Voice Support integration through checksum-pinned Screen-Aware Support v1.0.0 artifacts |
 | Route a case into a live specialist queue and return a resolution. | Not built |
 
 ## Safety and reliability requirements
@@ -61,9 +61,9 @@ Status: **Implemented as a local mock**. A live queue and specialist workflow ar
 7. Wording must not promise a refund, cancellation, delivery, deadline, or human outcome that the system cannot ensure.
 8. Troubleshooting must have a fixed step bound and a defined handoff outcome.
 9. Audit or model-judge failure must not delay the customer response. The deterministic trace remains the primary record.
-10. An unknown screen identity or target must clear or withhold the visual overlay.
+10. An unknown or mismatched app, screen, target, frame, session, consent, geometry, or command state must clear or withhold the visual overlay.
 
-Items 1–9 are implemented for the controlled prototype paths. Item 10 is proof only in the separate screen-aware dependency. Production availability, retry, recovery, and service-level requirements are not built.
+Items 1–10 are implemented for the controlled prototype paths, including the private Screen-Aware Support companion. Production availability, retry, recovery, and service-level requirements are not built.
 
 ## Human-handoff requirements
 

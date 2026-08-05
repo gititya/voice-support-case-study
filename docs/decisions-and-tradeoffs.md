@@ -223,3 +223,11 @@ The Core runs its own 69-test suite and 152-arm benchmark. Voice Support runs a 
 **What would cause the decision to change**
 
 Merge the repositories if the contract creates more coordination cost than independent value. Strengthen the package boundary if a second independent product can consume the core through a clean install and conformance suite.
+
+### Companion boundary: keep visual guidance separate
+
+Visual target resolution and presentation are reusable capabilities. Product-specific customer context, support policy, risk, and action selection remain with Voice Support and Support State Core. Screen-Aware Support therefore stays in a separate repository and receives only an approved guide result and registered target.
+
+This boundary improves reuse, isolated testing, and authority separation. The accepted cost is explicit contract, versioning, and dependency-management work. Voice Support currently consumes checksum-pinned v1.0.0 Python, browser, and contract artifacts rather than importing Screen-Aware Support repository internals.
+
+See the private companion's [API and product boundary](https://github.com/gititya/screen-aware-support/blob/main/docs/public-api-v1.md) (access required). This case study does not duplicate its contracts, privacy analysis, threat model, test record, or roadmap.

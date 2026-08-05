@@ -2,7 +2,7 @@
 
 ## Before recording
 
-Use only the controlled synthetic app and fixture accounts. Reset local cases. Show no terminal path, credential, database contents, trace identifier, or private repository screen. If the private screen-aware release is unavailable, show the registered target in the app without claiming a live overlay.
+Use only the controlled synthetic app and fixture accounts. Reset local cases. Show no terminal path, credential, database contents, trace identifier, or private repository screen. If the private Screen-Aware Support v1.0.0 path is unavailable, show the registered target in the app without claiming a live overlay.
 
 ## 0:00–0:30 — Start with the customer problem
 
@@ -25,17 +25,18 @@ This prototype tests a narrow alternative. A model interprets the request, trust
 
 **Narration**
 
-“The model proposes a low-risk guide intent. Support State Core checks that the current product state supports that action. The response names one registered target: invoice history.”
+"The model proposes a low-risk guide intent. Support State Core checks that the current product state supports that action and approves the guide lane. Voice Support then requests the registered invoice-history target. Screen-Aware Support verifies the current app, screen, frame, session, consent, and target before it displays guidance."
 
 **Show**
 
 - The response with one step.
-- The `invoice_history` control highlighted, if the private renderer is available.
+- The `invoice_history` control outlined through the private Screen-Aware Support path, if configured.
+- The click-through outline leaving the underlying product control available to the customer.
 - The customer, not the support system, clicking the control.
 
 **Call out**
 
-“The system can point and explain. It cannot click, submit, or change the account.”
+"The outline is non-interactive. The system can point and explain, but it cannot move the pointer, click, type, focus, scroll, submit, navigate, or change the account. The customer performs the action."
 
 ## 1:10–1:50 — Correction and ambiguity path
 
