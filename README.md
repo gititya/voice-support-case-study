@@ -53,8 +53,6 @@ See the [system design](docs/system-design.md) for how these parts connect.
 
 Demo video: [Add recorded walkthrough]
 
-See the [three-minute demo script](docs/demo-script.md).
-
 ## Solving screen guidance: Screen-Aware Support
 
 I built Screen-Aware Support to find the right control on the customer's screen and point to it. It does not click anything for the customer.
@@ -149,7 +147,6 @@ See [decisions and trade-offs](docs/decisions-and-tradeoffs.md) for the options,
 - [Decisions and trade-offs](docs/decisions-and-tradeoffs.md)
 - [Evaluation](docs/evaluation.md)
 - [Roadmap](docs/roadmap.md)
-- [Three-minute demo script](docs/demo-script.md)
 - [Screen-Aware Support — visual guidance without remote control](https://github.com/gititya/screen-aware-support) (private; access required)
 
 ## Copyright
