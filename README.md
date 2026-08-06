@@ -51,7 +51,9 @@ See the [system design](docs/system-design.md) for how these parts connect.
 
 ## Demo
 
-Demo video: [Add recorded walkthrough]
+Demo video: **[Watch the walkthrough](https://www.loom.com/share/a85fb03a312c4d08a6c1bdfe21d7301b)**
+
+Four minutes. Silence is cut. Best watched at 1.2x.
 
 ## Solving screen guidance: Screen-Aware Support
 
@@ -96,7 +98,7 @@ The app registers this information once, then sends the current customer request
 
 ## Evaluation and results
 
-All results below come from synthetic scenarios and local test fixtures. They do not show production performance or customer impact.
+All results below come from synthetic scenarios, local test fixtures, and owner-run live journeys against a real third-party macOS app. They do not show production performance or customer impact.
 
 | What I tested | What happened |
 |---|---|
@@ -133,7 +135,7 @@ See [decisions and trade-offs](docs/decisions-and-tradeoffs.md) for the options,
 
 ## Known limitations
 
-1. All scenarios use synthetic data in controlled apps. There are no real users, customer accounts, tickets, or production metrics.
+1. Results come from 11 synthetic product scenarios and owner-run live journeys against a real third-party macOS app. There are no real users, customer accounts, tickets, or production metrics.
 2. Human handoff ends in a local mock inbox.
 3. Visual guidance relies on a private companion release and registered controlled products. It is not available for arbitrary apps or screens.
 4. The Qwen, speech, Screen-Aware Support, and timing samples are small.
