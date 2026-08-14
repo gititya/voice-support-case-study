@@ -1,6 +1,11 @@
-# Voice Support: State-Grounded Guidance and Safe Handoff
+# Support Product: State-Grounded Guidance and Safe Handoff
 
-This prototype is my reimagined take on how customers seek help in B2C products. It turns typed or voice requests into one of three bounded outcomes:
+This repo is the public case-study organ of **Support Product**. The product map lives at
+`customer-support-ai-os/system-map.json`; read it before assuming this repo stands alone.
+
+Support Product is my reimagined take on how customers seek help in B2C products. Voice Support is
+its customer-facing organ. Together, the product's parts turn typed or voice requests into one of
+three bounded outcomes:
 
 1. Safe visual guidance.
 2. A troubleshooting sequence with one question at a time and a maximum of two diagnostic steps.
@@ -64,7 +69,7 @@ To use Screen-Aware Support, an app needs to:
 1. Provide a product map with its registered screens and controls.
 2. Provide the current app, screen, session, and consent state.
 3. Let Screen-Aware Support find the approved control through the product map, the app's Accessibility tree, or GPT-5.6 Sol for an approved app and window.
-4. Let Screen-Aware Support draw a square, circle, or caption around the control. The customer still performs the action.
+4. Declare the target's purpose so Screen-Aware Support can use a rectangle for a full control, an arrow for a compact control, a ring for a place to inspect, or plain reading text when there is no safe target. The customer still performs the action.
 
 I benchmarked `openai/gpt-5.6-sol` against `anthropic/claude-sonnet-5` for Screen-Aware Support. Sol won: 89 of its 90 reviewed answers and guidance decisions were correct, compared with Sonnet's 88 of 90. Neither had a safety failure. In a separate smoke test, `z-ai/glm-5.2` returned valid output in only 2 of 10 attempts and did not advance.
 
@@ -111,6 +116,11 @@ All results below come from synthetic scenarios, local test fixtures, and owner-
 The publication check reran the code tests and the deterministic Core benchmark. It did not rerun the paid 11-scenario Qwen evaluation, so that result comes from the saved evaluation file.
 
 See the [full evaluation](docs/evaluation.md) for the test method, individual failures, timing boundaries, and limitations.
+
+The current [golden-journey evidence](https://github.com/gititya/support-product/tree/main/journey-runtime/golden-journeys)
+records fresh-frame progression, valid detours, stale-frame rejection, and the live capability gate.
+The source repository is private; access is required. A current supervised Muesli run remains
+pending and is not claimed as complete here.
 
 ### What I changed or kept after testing
 
