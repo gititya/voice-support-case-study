@@ -1,0 +1,33 @@
+name: Deterministic checks
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  case-study:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Check required public artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s README.md
+          test -s docs/system-design.md
+          test -s docs/evaluation.md
+          test -s assets/voice-support-flow.svg
+          grep -Fq '# Support Product:' README.md
+          grep -Fq 'golden-journey evidence' README.md
+      - name: Reject secrets and local credential files
+        shell: bash
+        run: |
+          set -euo pipefail
+          if find . -type f \( -name '.env' -o -name '.env.*' -o -name '*.pem' -o -name '*.p12' \) -print -quit | grep -q .; then
+            echo 'Credential-like file found in the public case study.' >&2
+            exit 1
+          fi
