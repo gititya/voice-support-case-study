@@ -3,7 +3,7 @@ name: Deterministic checks
 on:
   pull_request:
   push:
-    branches: [main]
+    branches: [main, codex/master-plan-experience]
 
 permissions:
   contents: read
