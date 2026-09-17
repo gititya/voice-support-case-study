@@ -1,5 +1,7 @@
 # Voice Support: State-Grounded Guidance and Safe Handoff
 
+> This case study describes the earlier controlled demonstration shown in its video. The shared capabilities have since changed, including investigation, multi-screen guidance and customer outcome confirmation. The current Muesli integration has not been requalified; this video is not proof of that later version.
+
 This prototype is my reimagined take on how customers seek help in B2C products. It turns typed or voice requests into one of three bounded outcomes:
 
 1. Safe visual guidance.
