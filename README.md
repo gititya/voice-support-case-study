@@ -146,11 +146,9 @@ See [decisions and trade-offs](docs/decisions-and-tradeoffs.md) for the options,
 ## Other documentation
 
 - [Customer problem](docs/customer-problem.md)
-- [Product requirements](docs/product-requirements.md)
 - [System design](docs/system-design.md)
 - [Decisions and trade-offs](docs/decisions-and-tradeoffs.md)
 - [Evaluation](docs/evaluation.md)
-- [Roadmap](docs/roadmap.md)
 - [Screen-Aware Support — visual guidance without remote control](https://github.com/gititya/screen-aware-support) (private; access required)
 
 ## Copyright
@@ -158,3 +156,7 @@ See [decisions and trade-offs](docs/decisions-and-tradeoffs.md) for the options,
 Copyright © 2026 Aditya. All rights reserved.
 
 This repository is public for review. No license is granted to reuse, modify, or distribute its contents.
+
+## Shared journey evaluation
+
+[Support Evals](https://github.com/gititya/support-evals) is used to review selected saved journeys from the shared Voice Support system, including whether instructions follow the current step, resolution is confirmed and a receiving system acknowledges a handoff. Voice also has its own component checks. These reviews do not establish broad app reliability or qualify the older case-study video as evidence of the current integration.

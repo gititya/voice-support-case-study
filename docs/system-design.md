@@ -120,4 +120,4 @@ Model output can add caution or trigger a handoff. It does not override a higher
 
 This is not a production deployment design. The audited system runs locally with synthetic product state. It has no public service boundary, production identity, tenant isolation, real support queue, customer-record integration, retention policy, operational service levels, or incident process.
 
-The [roadmap](roadmap.md) lists what a production deployment would require without treating those items as implemented.
+Production deployment remains outside the demonstrated scope.
